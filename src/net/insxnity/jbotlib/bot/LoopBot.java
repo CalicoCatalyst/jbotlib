@@ -5,7 +5,6 @@ import java.util.Timer;
 
 import net.dean.jraw.http.NetworkException;
 import net.dean.jraw.models.Contribution;
-import net.insxnity.jbotlib.exceptions.CredentialException;
 import net.insxnity.jbotlib.util.LoopTask;
 import net.insxnity.jbotlib.util.TimeUtils;
 import net.insxnity.jbotlib.util.Util;
@@ -74,32 +73,7 @@ public class LoopBot extends RedditBot {
 		System.exit(0);
 	}
 	
-	/**
-	 * Setup the bots. Credentials need to be predifined or included in the override
-	 * 
-	 * @return
-	 */
-	public RedditBot setupBot() {
-		Util.log("Generating Credentials");
-		
-		try {
-			createCredentials();
-		} catch (CredentialException e) {
-			e.printStackTrace();
-		}
-		createUserAgent();
-		
-		// Will return null if credentials aren't provided
-		try {
-			return setupBotVariables();
-		} catch (CredentialException e) {
-			Util.log("Error 2: CredentialException:");
-			Util.log(e.getMessage());
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+
 	
 	@Override
 	public void reply(Contribution c, String text) {

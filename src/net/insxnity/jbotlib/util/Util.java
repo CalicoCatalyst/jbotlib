@@ -20,7 +20,11 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+
+import net.dean.jraw.ApiException;
 import net.dean.jraw.RedditClient;
+import net.dean.jraw.http.NetworkException;
+import net.dean.jraw.managers.ModerationManager;
 import net.dean.jraw.models.Contribution;
 import net.insxnity.jbotlib.bot.RedditBot;
 
@@ -112,6 +116,16 @@ public class Util {
 
 	public static Contribution getContributionByID(RedditClient r, String id) {
 		return (Contribution) (r.get(id)).get(0);
+	}
+	
+	public static void deleteContribution(RedditBot r, Contribution c) {
+		ModerationManager mm = new ModerationManager(r.getRedditClient());
+		try {
+			mm.delete(c.getFullName());
+		} catch (NetworkException | ApiException e) {
+			Util.log("Attempting to Reauthenticate...");
+			r.setupBot();
+		}
 	}
 
 }

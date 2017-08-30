@@ -176,6 +176,33 @@ public class RedditBot {
 	}	
 	
 	/**
+	 * Setup the bots. Credentials need to be predifined or included in the override
+	 * 
+	 * @return
+	 */
+	public RedditBot setupBot() {
+		Util.log("Generating Credentials");
+		
+		try {
+			createCredentials();
+		} catch (CredentialException e) {
+			e.printStackTrace();
+		}
+		createUserAgent();
+		
+		// Will return null if credentials aren't provided
+		try {
+			return setupBotVariables();
+		} catch (CredentialException e) {
+			Util.log("Error 2: CredentialException:");
+			Util.log(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Create Credentials using parameters provided
 	 * 
 	 * @param u - Username
