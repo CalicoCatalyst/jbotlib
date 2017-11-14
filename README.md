@@ -113,6 +113,8 @@ Once you've done that, follow the instructions above to use them in your project
     
 # Example Program
 
+This program will reply to the current top post on redditdev, then make a post on "exampelSubreddit"
+
     package net.insxnity.redditbot.jbotlibtest;
 
     import java.util.List;
@@ -122,11 +124,14 @@ Once you've done that, follow the instructions above to use them in your project
     import net.insxnity.jbotlib.bot.LoopBot;
 
     public class JBotLibTest extends LoopBot {
-
+      public static void main(String[] args) {
+        JBotLibTest redditBot = new JBotLibTest();
+        redditBot.startLoop()
+      }
       /**
        * This method can be called by any outside class, and doing so will run the bot
        */
-      public void run() {
+      public JBotLibTest() {
         setUsername("username");
         setPassword("password");
         setPublicKey("publickey");
@@ -134,9 +139,6 @@ Once you've done that, follow the instructions above to use them in your project
         
         // Use the provided credentials to configure all of the bot variables we'll need
         setupBot();
-
-        // Start running mainLoop();
-        startLoop();
       }
 
       @Override
